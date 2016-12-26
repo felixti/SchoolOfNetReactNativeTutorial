@@ -4,6 +4,7 @@ import { Navigator } from 'react-native';
 import HomePage from './HomePage';
 import AboutPage from './AboutPage';
 import Tasklist from './Tasklist';
+import FetchPage from './FetchPage';
 
 export default class InitRouter extends Component {
 	constructor() {
@@ -44,6 +45,15 @@ export default class InitRouter extends Component {
 					navaigator={ navigator }
 					{...route.passProps}
 					title="Tasklist"/>
+			);
+		}
+
+		if(route.name == 'HTTP') {
+			return (
+				<FetchPage
+					navigator= { navigator }
+					{...route.passProps}
+					title="FecthPage"/>
 			);
 		}
 	}

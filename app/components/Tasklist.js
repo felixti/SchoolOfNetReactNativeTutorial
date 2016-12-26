@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button, Alert, Text } from 'react-native';
+import { View, TextInput, Button, Alert, Text, ListView } from 'react-native';
+import LsView from './LsView';
 
 export default class Tasklist extends Component {
 	constructor() {
 	  super();
 
+      this.ds = new ListView.DataSource({
+      		rowHasChanged: (row1, row2) => row1 !== row2
+      });
+
 	  this.state = {
 	  		todoTxt: '',
-	  		todoList: []
+	  		todoList: [],
+	  		dataSource: this.ds.cloneWithRows([])
+
 	  }
 	}
 
@@ -30,6 +37,8 @@ export default class Tasklist extends Component {
 				 		</Text>
 				 	)) }
 				</View>
+
+				<LsView dataSource= { this.state.dataSource } />
 			</View>
 		);
 	}
@@ -50,7 +59,8 @@ export default class Tasklist extends Component {
 
 		this.setState({
 			todoTxt: '',
-			todoList: this.state.todoList
+			todoList: this.state.todoList,
+			dataSource: this.ds.cloneWithRows(this.state.todoList)
 		});
 	}
 }
